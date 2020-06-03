@@ -9,6 +9,9 @@
  * This class is for tvshows dataset, one object represents one piece of data
  * TODO: review member of the class
  * TODO: review UID creation, should that be enough to uniquely identify one data piece
+ *
+ * TODO: Unit test
+ * TODO: Log system
  */
 
 #ifndef COMMON_H
