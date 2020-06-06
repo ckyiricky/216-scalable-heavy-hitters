@@ -14,6 +14,7 @@
 
 /*
  * Thread safe queue
+ * pop api might change
  */
 template <class T>
 class SafeQueue
@@ -26,6 +27,7 @@ public:
     SafeQueue(){};
     ~SafeQueue(){};
     void push(const T& data);
+    void push(T&& data);
     T pop();
     bool tryPop(T& outputData);
     bool empty();

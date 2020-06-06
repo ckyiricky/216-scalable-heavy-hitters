@@ -11,7 +11,7 @@
 class Hasher
 {
 public:
-    virtual string hash(const string& id);
+    virtual unsigned long hash(const string& id);
 };
 
 #endif /* !HASHER_H */

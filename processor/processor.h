@@ -8,19 +8,22 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
 
-#include "multistage_filter.h"
+#include "filter.h"
+
+using namespace std;
 
 class Processor
 {
 private:
-    shared_ptr<MultistageFilter> mFilter;
+    // Dependency injection
+    shared_ptr<Filter> mFilter;
     shared_ptr<Reporter> mReporter;
     // TODO: SafeQueue implementation
-    SafeQueue<TVShows> mInputDataQueue;
-    SafeQueue<TVShows> mOutputDataQueue;
+    shared_ptr<SafeQueue<TVShows>> mInputDataQueue;
+    shared_ptr<SafeQueue<TVShows>> mOutputDataQueue;
     // TODO: Thread implementation
-    Thread mFilterThread;
-    Thread mReportThread;
+    shared_ptr<thread> mFilterThread;
+    shared_ptr<thread> mReportThread;
 public:
     Processor();
     Processor(shared_ptr<MultistageFilter>, shared_ptr<Reporter>);

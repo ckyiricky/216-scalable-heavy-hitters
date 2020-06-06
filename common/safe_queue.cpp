@@ -16,6 +16,13 @@ void SafeQueue<T>::push(const T& data)
     mCondition.notify_one();
 }
 template<class T>
+void SafeQueue<T>::push(T&& data)
+{
+    std::lock_guard<std::mutex> lock(mMutex);
+    mQueue.push(data);
+    mCondition.notify_one();
+}
+template<class T>
 T SafeQueue<T>::pop()
 {
     std::lock_guard<std::mutex> lock(mMutex);

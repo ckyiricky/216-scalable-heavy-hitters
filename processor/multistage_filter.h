@@ -9,24 +9,29 @@
 #define MULTISTAGE_FILTER_H
 
 #include <vector>
-#include <shared_ptr>
-#include "common.h"
+#include "safe_queue.h"
+#include "filter.h"
 
-class MultistageFilter
+class MultistageFilter : Filter
 {
 private:
-    vector<unordered_map<string, unsigned long>> mFilters;
-    /*
-    SafeQueue<TVShows> mInputDataQueue;
-    SafeQueue<TVShows> mOutputDataQueue;
-    */
+    // TODO: structure of filters
+    vector<vector<unsigned long>> mFilters;
+    shared_ptr<SafeQueue<TVShows>> mDataQueue;
     shared_ptr<Hasher> mHasher;
     unsigned long mThreshold;
+    int mStages;
+    // TODO: how many entries are need for every stage
+    int mEntries;
+    void getHashes(unsigned long id, vector<unsigned long>& hashes);
 public:
-    MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold);
-    MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
+    MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>> queue, shared_ptr<Hasher> hasher, unsigned long threshold);
+    MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>> queue, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
     ~MultistageFilter();
-    bool filter(const TVShows& data, bool conservativeUpdate = false);
+    // TODO: might not need the bool, in filter data has been put the data into the queue
+    // Future update to perfect forwarding
+    bool filter(TVShows& data){return filter(data, false);}
+    bool filter(TVShows& data, bool conservativeUpdate = false);
 };
 
 #endif /* !MULTISTAGE_FILTER_H */
