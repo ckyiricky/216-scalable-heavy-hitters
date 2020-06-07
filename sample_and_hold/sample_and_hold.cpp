@@ -16,30 +16,30 @@ void showResults(std::unordered_map<string, int>& stat) {
 
 // read the source file, parse the Oscar objects and push to ostream
 void getOscarStream(string file, QType& queue_out) {
-	ifstream fin(file);
-	if (fin.fail()) {
+  ifstream fin(file);
+  if (fin.fail()) {
     printf("[getOscarStream] failed to open file!\n");
     exit(1);
   }
 
-	string line, temp;
-	while (!fin.eof()){
-		getline(fin, line);
-		if (line.length() > 0) {
-			queue_out.push(Oscar(line));
+  string line, temp;
+  while (!fin.eof()){
+    getline(fin, line);
+    if (line.length() > 0) {
+      queue_out.push(Oscar(line));
     }
-	}
+  }
 
   // mark the end of stream
   queue_out.push(Oscar("EOL, 0, 0, 0"));
 
-	fin.close();  
+  fin.close();  
 }
 
 // baseline
 void countAll(float threshold_dummy, QType& queue_in, unordered_map<string, int>& stat) {
-	while(1) {
-		string cat = queue_in.pop().getCategory();
+  while(1) {
+    string cat = queue_in.pop().getCategory();
     if (cat == "EOL") {
       break;
     }
@@ -50,12 +50,12 @@ void countAll(float threshold_dummy, QType& queue_in, unordered_map<string, int>
     else {
       stat[cat] = 1;
     }
-	}
+  }
 }
 
 void sampleAndHold(float threshold, QType& queue_in, unordered_map<string, int>& stat) {
-	while(1) {
-		string cat = queue_in.pop().getCategory();
+  while(1) {
+    string cat = queue_in.pop().getCategory();
     if (cat == "EOL") {
       break;
     }
@@ -70,14 +70,14 @@ void sampleAndHold(float threshold, QType& queue_in, unordered_map<string, int>&
         stat[cat] = 1;
       }
     }
-	}
+  }
 }
 
 int main() {
 
-	// string file = "../data/test.csv";
-	// string file = "../data/oscar_small.csv";
-	string file = "../data/oscar_large.csv";
+  // string file = "../data/test.csv";
+  // string file = "../data/oscar_small.csv";
+  string file = "../data/oscar_large.csv";
 
   QType queue;
   unordered_map<string, int> stat;
@@ -92,5 +92,5 @@ int main() {
 
   showResults(stat);
 
-	return 0;
+  return 0;
 }

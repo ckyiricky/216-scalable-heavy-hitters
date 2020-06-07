@@ -19,10 +19,10 @@ using namespace std;
 // Struct for the Oscars dataset
 class Oscar {
 private:
-	string category;
-	string name;
-	string film;
-	string winner;
+  string category;
+  string name;
+  string film;
+  string winner;
 
   // Helper function splitting string by ','
   vector<string> getList(string s){
