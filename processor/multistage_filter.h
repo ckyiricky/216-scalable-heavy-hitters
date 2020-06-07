@@ -12,7 +12,7 @@
 #include "safe_queue.h"
 #include "filter.h"
 
-class MultistageFilter : Filter
+class MultistageFilter : public Filter
 {
 private:
     // TODO: structure of filters
