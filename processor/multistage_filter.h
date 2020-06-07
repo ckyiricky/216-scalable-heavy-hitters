@@ -17,7 +17,6 @@ class MultistageFilter : public Filter
 private:
     // TODO: structure of filters
     vector<vector<unsigned long>> mFilters;
-    shared_ptr<SafeQueue<TVShows>> mDataQueue;
     shared_ptr<Hasher> mHasher;
     unsigned long mThreshold;
     int mStages;
@@ -25,13 +24,13 @@ private:
     int mEntries;
     void getHashes(unsigned long id, vector<unsigned long>& hashes);
 public:
-    MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>> queue, shared_ptr<Hasher> hasher, unsigned long threshold);
-    MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>> queue, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
+    MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold);
+    MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
     ~MultistageFilter();
     // TODO: might not need the bool, in filter data has been put the data into the queue
     // Future update to perfect forwarding
-    bool filter(TVShows& data){return filter(data, false);}
-    bool filter(TVShows& data, bool conservativeUpdate = false);
+    bool filter(shared_ptr<TVShows> data){return filter(data, false);}
+    bool filter(shared_ptr<TVShows> data, bool conservativeUpdate = false);
 };
 
 #endif /* !MULTISTAGE_FILTER_H */

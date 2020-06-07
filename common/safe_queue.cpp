@@ -27,6 +27,9 @@ T SafeQueue<T>::pop()
 {
     std::lock_guard<std::mutex> lock(mMutex);
     mCondition.wait(lock, [&]{return !mQueue.empty();});
+    T val = mQueue.front();
+    mQueue.pop();
+    return val;
 }
 template<class T>
 bool SafeQueue<T>::tryPop(T& outputData)

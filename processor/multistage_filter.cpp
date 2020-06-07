@@ -9,8 +9,8 @@
 
 
 
-MultistageFilter::MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>> queue, shared_ptr<Hasher> hasher, unsigned long threshold) 
-    : mDataQueue(queue), mHasher(hasher), mThreshold(threshold)
+MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold) 
+    : mHasher(hasher), mThreshold(threshold)
 {
     if (filterSize <= 0)
     {
@@ -23,8 +23,8 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>
     mEntries = 10;
 }
 
-MultistageFilter::MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>> queue, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio) 
-    : mDataQueue(queue), mHasher(hasher)
+MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio) 
+    : mHasher(hasher)
 {
     if (thresholdRatio > 1.0)
     {
@@ -47,10 +47,10 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<SafeQueue<TVShows>
 {
 }
 
-bool MultistageFilter::filter(TVShows& data, bool conservativeUpdate = false)
+bool MultistageFilter::filter(shared_ptr<TVShows> data, bool conservativeUpdate = false)
 {
     // TODO: conservative update
-    string dataId = data.getUID();
+    string dataId = data->getUID();
     auto hashId = mHasher(dataId);
     vector<unsigned long> hashes;
     getHashes(hashId, hashes);
@@ -60,11 +60,6 @@ bool MultistageFilter::filter(TVShows& data, bool conservativeUpdate = false)
         {
             passed = false;
         }
-    }
-    // If passed filter, put data into queue
-    if (passed)
-    {
-        mDataQueue.push(move(data));
     }
     return passed;
 }

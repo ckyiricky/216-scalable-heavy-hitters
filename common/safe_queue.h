@@ -13,7 +13,7 @@
 #include <condition_variable>
 
 /*
- * Thread safe queue
+ * Thread safe queue, one producer and one customer
  * pop api might change
  */
 template <class T>
