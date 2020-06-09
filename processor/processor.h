@@ -12,6 +12,7 @@
 #include "filter.h"
 #include "reporter.h"
 #include "data_preprocessor.h"
+#include "safe_queue.h"
 
 using namespace std;
 
@@ -44,7 +45,7 @@ private:
 public:
     Processor() = delete;
     Processor(shared_ptr<Filter>, shared_ptr<Reporter>, shared_ptr<DataPreprocessor>);
-    ~Processor();
+    ~Processor(){};
     void startFiltering();
     void stopFiltering();
     void startDataPreprocessing();

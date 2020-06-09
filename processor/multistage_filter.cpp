@@ -5,8 +5,8 @@
  * Distributed under terms of the MIT license.
  */
 
+#include <bitset>
 #include "multistage_filter.h"
-
 
 
 MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold) 
@@ -17,10 +17,10 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, un
         printf("filter size < 0, automatically set to 1");
         filterSize = 1;
     }
-    mFilters.resize(filterSize, vector<unsigned long>(mEntries));
-    mStage = filterSize;
+    mStages = filterSize;
     // TODO: calculate mEntries, temporarily set to 10
     mEntries = 10;
+    mFilters.resize(filterSize, vector<unsigned long>(mEntries));
 }
 
 MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio) 
@@ -37,24 +37,25 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, un
         printf("filter size < 0, automatically set to 1");
         filterSize = 1;
     }
-    mFilters.resize(filterSize, vector<unsigned long>(mEntries));
-    mStage = filterSize;
+    mStages = filterSize;
     // TODO: calculate mEntries, temporarily set to 10
     mEntries = 10;
+    mFilters.resize(filterSize, vector<unsigned long>(mEntries));
 }
 
-~MultistageFilter::MultistageFilter()
+MultistageFilter::~MultistageFilter()
 {
 }
 
-bool MultistageFilter::filter(shared_ptr<TVShows> data, bool conservativeUpdate = false)
+bool MultistageFilter::filter(shared_ptr<TVShows> data, bool conservativeUpdate)
 {
     // TODO: conservative update
     string dataId = data->getUID();
-    auto hashId = mHasher(dataId);
+    auto hashId = mHasher->hash(dataId);
     vector<unsigned long> hashes;
     getHashes(hashId, hashes);
-    for (int i = 0; i < mStage; ++i)
+    bool passed = true;
+    for (int i = 0; i < mStages; ++i)
     {
         if (++mFilters[i][hashes[i]%mEntries] < mThreshold)
         {

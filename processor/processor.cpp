@@ -13,42 +13,67 @@
 
 void Processor::dataPreprocessing()
 {
+    printf("start data preprocessing \n");
+    shared_ptr<TVShows> data;
+    while (mPreDataWorking)
+    {
+        shared_ptr<TVShows> data = mpPreprocessor->preprocess();
+        mInputDataQueue.push(data);
+    }
 }
 
 void Processor::filtering()
 {
-    shared_ptr<TVShows> data;
+    printf("start filtering \n");
     while (mFilterWorking)
     {
+        shared_ptr<TVShows> data;
         bool getData = mInputDataQueue.tryPop(data);
         if (!getData) continue;
-        bool passed = mFilter->filter(data);
+        bool passed = mpFilter->filter(data);
         if (passed)
         {
-            mOutputQueue.push(data);
+            printf("Data %s passed filter \n", data->getUID().c_str());
+            mOutputDataQueue.push(data);
         }
     }
 }
 
-void reporting()
+void Processor::reporting()
 {
+    printf("start reporting \n");
+    shared_ptr<TVShows> data;
+    while (mReportWorking)
+    {
+        bool getData = mOutputDataQueue.tryPop(data);
+        if (!getData) continue;
+        mpReporter->report(data);
+    }
 }
 
 /*-------------------------public methods---------------------------*/
 
-Processor::Processor(shared_ptr<Filter> filter, shared_ptr<Reporter> reporter, shared_ptr<DataProcessor> preprocessor)
-    : mpFilter(filter), mpReporter(reporter), mpPreprocessor(preprocessor)
+Processor::Processor(shared_ptr<Filter> filter, shared_ptr<Reporter> reporter, shared_ptr<DataPreprocessor> preprocessor)
+    : mpFilter(filter), mpReporter(reporter), mpPreprocessor(preprocessor), mInputDataQueue(SafeQueue<shared_ptr<TVShows>>()), mOutputDataQueue(SafeQueue<shared_ptr<TVShows>>())
 {
-    mInputDataQueue = SafeQueue<shared_ptr<TVShows>>();
-    mOutputDataQueue = SafeQueue<shared_ptr<TVShows>>();
 }
 
 void Processor::startDataPreprocessing()
 {
+    if (mPreDataWorking)
+    {
+        printf("Datapreprocessing thread is already running");
+        return;
+    }
+    mPreDataWorking = true;
+    mpDataThread = make_shared<thread>(&Processor::dataPreprocessing, this);
 }
 
 void Processor::stopDataPreprocessing()
 {
+    if (!mPreDataWorking) return;
+    mPreDataWorking = false;
+    mpDataThread->join();
 }
 
 void Processor::startFiltering()
@@ -59,21 +84,32 @@ void Processor::startFiltering()
         return;
     }
     mFilterWorking = true;
-    mFilterThread = make_shared<thread>(&Processor::filterOneData, this);
+    mpFilterThread = make_shared<thread>(&Processor::filtering, this);
 }
 
-void Proessor::stopFiltering()
+void Processor::stopFiltering()
 {
     if (!mFilterWorking) return;
-    mFilterThread->join();
+    mFilterWorking = false;
+    mpFilterThread->join();
 }
 
 void Processor::startReporting()
 {
+    if (mReportWorking)
+    {
+        printf("Reporting thread is already running");
+        return;
+    }
+    mReportWorking = true;
+    mpReportThread = make_shared<thread>(&Processor::reporting, this);
 }
 
 void Processor::stopReporting()
 {
+    if (!mReportWorking) return;
+    mReportWorking = false;
+    mpReportThread->join();
 }
 
 void Processor::startAll()

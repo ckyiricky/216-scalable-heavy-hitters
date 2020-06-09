@@ -9,8 +9,8 @@
 #define MULTISTAGE_FILTER_H
 
 #include <vector>
-#include "safe_queue.h"
 #include "filter.h"
+#include "hasher.h"
 
 class MultistageFilter : public Filter
 {

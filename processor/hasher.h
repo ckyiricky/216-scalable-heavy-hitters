@@ -8,10 +8,12 @@
 #ifndef HASHER_H
 #define HASHER_H
 
+#include <string>
+
 class Hasher
 {
 public:
-    virtual unsigned long hash(const string& id);
+    virtual unsigned long hash(const std::string& id) = 0;
 };
 
 #endif /* !HASHER_H */

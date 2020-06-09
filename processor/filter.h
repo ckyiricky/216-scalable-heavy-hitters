@@ -14,7 +14,7 @@ class Filter
 {
 public:
     virtual bool filter(shared_ptr<TVShows> data) = 0;
-    virtual ~Filter();
+    virtual ~Filter(){}
 };
 
 #endif /* !FILTER_H */
