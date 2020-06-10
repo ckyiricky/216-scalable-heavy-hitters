@@ -17,7 +17,7 @@
 class Reporter
 {
 public:
-    virtual void report(shared_ptr<TVShows>) = 0;
+    virtual void report(std::shared_ptr<TVShows>) = 0;
 };
 
 #endif /* !REPORTER_H */

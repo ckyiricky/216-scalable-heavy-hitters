@@ -19,15 +19,9 @@
 #define makeDir(dir) mkdir(dir, 0755)
 #endif
 
-#include <glog/logging.h>
 #include <string>
+#include <glog/logging.h>
 
-void initLog(const std::string& ps)
-{
-    makeDir((ps + "_log/").c_str());
-    FLAGS_log_dir = (ps + "_log/");
-    google::InitGoogleLogging(ps.c_str());
-    LOG(INFO) << "GLOG INITIALIZED";
-}
+void initLog(const std::string& ps);
 
 #endif /* !LOG_H */

@@ -18,7 +18,7 @@
 class DataPreprocessor
 {
 public:
-    virtual shared_ptr<TVShows> preprocess() = 0;
+    virtual std::shared_ptr<TVShows> preprocess() = 0;
 };
 
 #endif /* !DATA_PREPROCESSOR_H */

@@ -13,9 +13,9 @@
 class FakePreprocessor : public DataPreprocessor
 {
 public:
-    shared_ptr<TVShows> preprocess()
+    std::shared_ptr<TVShows> preprocess()
     {
-        return make_shared<TVShows>("testtitle", "rick", 1995);
+        return std::make_shared<TVShows>("testtitle", "rick", 1995);
     }
     ~FakePreprocessor(){}
 };

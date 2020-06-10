@@ -16,21 +16,21 @@ class MultistageFilter : public Filter
 {
 private:
     // TODO: structure of filters
-    vector<vector<unsigned long>> mFilters;
-    shared_ptr<Hasher> mHasher;
+    std::vector<std::vector<unsigned long>> mFilters;
+    std::shared_ptr<Hasher> mHasher;
     unsigned long mThreshold;
     int mStages;
     // TODO: how many entries are need for every stage
     int mEntries;
-    void getHashes(unsigned long id, vector<unsigned long>& hashes);
+    void getHashes(unsigned long id, std::vector<unsigned long>& hashes);
 public:
-    MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold);
-    MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
+    MultistageFilter(int filterSize, std::shared_ptr<Hasher> hasher, unsigned long threshold);
+    MultistageFilter(int filterSize, std::shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
     ~MultistageFilter();
     // TODO: might not need the bool, in filter data has been put the data into the queue
     // Future update to perfect forwarding
-    bool filter(shared_ptr<TVShows> data){return filter(data, false);}
-    bool filter(shared_ptr<TVShows> data, bool conservativeUpdate = false);
+    bool filter(std::shared_ptr<TVShows> data){return filter(data, false);}
+    bool filter(std::shared_ptr<TVShows> data, bool conservativeUpdate = false);
 };
 
 #endif /* !MULTISTAGE_FILTER_H */

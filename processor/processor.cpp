@@ -6,14 +6,16 @@
  */
 
 #include "processor.h"
+#include "log.h"
 
 /*
  * TODO:Methods related to data preprocessing and report have not been implemented yet
  */
+using namespace std;
 
 void Processor::dataPreprocessing()
 {
-    printf("start data preprocessing \n");
+    LOG(INFO) << "start data preprocessing";
     shared_ptr<TVShows> data;
     while (mPreDataWorking)
     {
@@ -24,7 +26,7 @@ void Processor::dataPreprocessing()
 
 void Processor::filtering()
 {
-    printf("start filtering \n");
+    LOG(INFO) << "start filtering";
     while (mFilterWorking)
     {
         shared_ptr<TVShows> data;
@@ -33,7 +35,7 @@ void Processor::filtering()
         bool passed = mpFilter->filter(data);
         if (passed)
         {
-            printf("Data %s passed filter \n", data->getUID().c_str());
+            LOG(INFO) << "Data " << data->getUID() << " passed filter.";
             mOutputDataQueue.push(data);
         }
     }
@@ -41,7 +43,7 @@ void Processor::filtering()
 
 void Processor::reporting()
 {
-    printf("start reporting \n");
+    LOG(INFO) << "start reporting";
     shared_ptr<TVShows> data;
     while (mReportWorking)
     {
@@ -62,7 +64,7 @@ void Processor::startDataPreprocessing()
 {
     if (mPreDataWorking)
     {
-        printf("Datapreprocessing thread is already running");
+        LOG(INFO) << "Datapreprocessing thread is already running";
         return;
     }
     mPreDataWorking = true;
@@ -80,7 +82,7 @@ void Processor::startFiltering()
 {
     if (mFilterWorking)
     {
-        printf("Filtering thread is already running");
+        LOG(INFO) << "Filtering thread is already running";
         return;
     }
     mFilterWorking = true;
@@ -98,7 +100,7 @@ void Processor::startReporting()
 {
     if (mReportWorking)
     {
-        printf("Reporting thread is already running");
+        LOG(INFO) << "Reporting thread is already running";
         return;
     }
     mReportWorking = true;

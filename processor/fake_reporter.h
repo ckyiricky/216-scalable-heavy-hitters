@@ -14,7 +14,7 @@
 class FakeReporter : public Reporter
 {
 public:
-    void report(shared_ptr<TVShows>);
+    void report(std::shared_ptr<TVShows>);
     ~FakeReporter(){}
 };
 

@@ -5,10 +5,10 @@
  * Distributed under terms of the MIT license.
  */
 
+#include "log.h"
 #include "fake_reporter.h"
 
-
-void FakeReporter::report(shared_ptr<TVShows> data)
+void FakeReporter::report(std::shared_ptr<TVShows> data)
 {
-    printf("data id %s \n", data->getUID().c_str());
+    LOG(INFO) << "Data id : " << data->getUID();
 }

@@ -5,35 +5,36 @@
  * Distributed under terms of the MIT license.
  */
 
+#include "log.h"
 #include "common.h"
 
 
-TVShows::TVShows(const string& title, const string& director, int year)
-    : TVShows(title, director, year, unordered_map<string, string>())
+TVShows::TVShows(const std::string& title, const std::string& director, int year)
+    : TVShows(title, director, year, std::unordered_map<std::string, std::string>())
 {
 }
 
-TVShows::TVShows(const string& title, const string& director, int year, const unordered_map<string, string>& extraInfo)
+TVShows::TVShows(const std::string& title, const std::string& director, int year, const std::unordered_map<std::string, std::string>& extraInfo)
     : mTitle(title), mDirector(director), mReleaseYear(year), mExtra(extraInfo)
 {
     mUID = createUID();
 }
 
-void TVShows::setTitle(const string& newTitle)
+void TVShows::setTitle(const std::string& newTitle)
 {
-    if (all_of(newTitle.begin(), newTitle.end(), isspace))
+    if (std::all_of(newTitle.begin(), newTitle.end(), isspace))
     {
-        printf("Set title to empty string, set failed");
+        LOG(ERROR) << "Set title to empty std::string, set failed";
         return;
     }
     mTitle = newTitle;
 }
 
-void TVShows::setDirector(const string& newDirector)
+void TVShows::setDirector(const std::string& newDirector)
 {
     if (all_of(newDirector.begin(), newDirector.end(), isspace))
     {
-        printf("Set director to empty string, set failed");
+        LOG(ERROR) << "Set director to empty std::string, set failed";
         return;
     }
     mDirector = newDirector;
@@ -44,22 +45,22 @@ void TVShows::setReleaseYear(int year)
     mReleaseYear = year;
 }
 
-void TVShows::setExtraInfo(const unordered_map<string, string>& extra)
+void TVShows::setExtraInfo(const std::unordered_map<std::string, std::string>& extra)
 {
     mExtra = extra;
 }
 
-void TVShows::setExtraInfo(const string& key, const string& value)
+void TVShows::setExtraInfo(const std::string& key, const std::string& value)
 {
     if (all_of(key.begin(), key.end(), isspace))
     {
-        printf("Extra info cant add empty key");
+        LOG(ERROR) << "Extra info cant add empty key";
         return;
     }
     mExtra[key] = value;
 }
 
-string TVShows::createUID() const
+std::string TVShows::createUID() const
 {
-    return mTitle + "###***" + mDirector + "###***" + to_string(mReleaseYear);
+    return mTitle + "###***" + mDirector + "###***" + std::to_string(mReleaseYear);
 }

@@ -14,25 +14,24 @@
 #include "data_preprocessor.h"
 #include "safe_queue.h"
 
-using namespace std;
 
 class Processor
 {
 private:
     // Dependency injection
-    shared_ptr<Filter> mpFilter;
-    shared_ptr<Reporter> mpReporter;
+    std::shared_ptr<Filter> mpFilter;
+    std::shared_ptr<Reporter> mpReporter;
     // TODO: DataProcessor interface
-    shared_ptr<DataPreprocessor> mpPreprocessor;
+    std::shared_ptr<DataPreprocessor> mpPreprocessor;
     // Data queues
     //  input: produced by data preprocessor, consumed by filter
     //  output: produced by filter, consumed by reporter
-    SafeQueue<shared_ptr<TVShows>> mInputDataQueue;
-    SafeQueue<shared_ptr<TVShows>> mOutputDataQueue;
+    SafeQueue<std::shared_ptr<TVShows>> mInputDataQueue;
+    SafeQueue<std::shared_ptr<TVShows>> mOutputDataQueue;
     // Three working threads
-    shared_ptr<thread> mpDataThread;
-    shared_ptr<thread> mpFilterThread;
-    shared_ptr<thread> mpReportThread;
+    std::shared_ptr<std::thread> mpDataThread;
+    std::shared_ptr<std::thread> mpFilterThread;
+    std::shared_ptr<std::thread> mpReportThread;
     // Thread control variables
     bool mFilterWorking;
     bool mPreDataWorking;
@@ -44,7 +43,7 @@ private:
     void reporting();
 public:
     Processor() = delete;
-    Processor(shared_ptr<Filter>, shared_ptr<Reporter>, shared_ptr<DataPreprocessor>);
+    Processor(std::shared_ptr<Filter>, std::shared_ptr<Reporter>, std::shared_ptr<DataPreprocessor>);
     ~Processor(){};
     void startFiltering();
     void stopFiltering();

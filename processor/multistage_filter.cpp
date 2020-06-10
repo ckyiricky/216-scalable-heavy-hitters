@@ -6,15 +6,17 @@
  */
 
 #include <bitset>
+#include "log.h"
 #include "multistage_filter.h"
 
+using namespace std;
 
 MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold) 
     : mHasher(hasher), mThreshold(threshold)
 {
     if (filterSize <= 0)
     {
-        printf("filter size < 0, automatically set to 1");
+        LOG(WARNING) << "filter size < 0, automatically set to 1";
         filterSize = 1;
     }
     mStages = filterSize;
@@ -28,13 +30,13 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, un
 {
     if (thresholdRatio > 1.0)
     {
-        printf("threshold ratio > 1.0, automatically set to 1.0");
+        LOG(WARNING) << "threshold ratio > 1.0, automatically set to 1.0";
         thresholdRatio = 1.0;
     }
     mThreshold = totalData * thresholdRatio;
     if (filterSize <= 0)
     {
-        printf("filter size < 0, automatically set to 1");
+        LOG(WARNING) << "filter size < 0, automatically set to 1";
         filterSize = 1;
     }
     mStages = filterSize;

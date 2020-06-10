@@ -20,7 +20,6 @@
 
 #include <string>
 #include <unordered_map>
-using namespace std;
 
 /*
  * Class of tv_show data,
@@ -29,33 +28,33 @@ using namespace std;
 class TVShows
 {
 private:
-    string mUID;
-    string mTitle;
-    string mDirector;
+    std::string mUID;
+    std::string mTitle;
+    std::string mDirector;
     int mReleaseYear;
     /*
      * Store additional information of the tvshows
      */
-    unordered_map<string, string> mExtra;
+    std::unordered_map<std::string, std::string> mExtra;
     /*
      * Might need to update this function:
      * 1. is current one enough to uniquely identify a piece of data?
      * 2. is this format UID easy to use --  int or uuid better?
      * 3. is encryption needed for the id?
      */
-    string createUID() const;
+    std::string createUID() const;
 public:
-    TVShows(const string& title, const string& director, int year, const unordered_map<string, string>& extraInfo);
-    TVShows(const string& title, const string& director, int year);
-    const string& getUID() const {return mUID;}
-    const string& getTitle() const {return mTitle;}
+    TVShows(const std::string& title, const std::string& director, int year, const std::unordered_map<std::string, std::string>& extraInfo);
+    TVShows(const std::string& title, const std::string& director, int year);
+    const std::string& getUID() const {return mUID;}
+    const std::string& getTitle() const {return mTitle;}
     int getReleaseYear() {return mReleaseYear;}
-    const unordered_map<string, string>& getExtraInfo() const {return mExtra;}
-    void setTitle(const string&);
-    void setDirector(const string&);
+    const std::unordered_map<std::string, std::string>& getExtraInfo() const {return mExtra;}
+    void setTitle(const std::string&);
+    void setDirector(const std::string&);
     void setReleaseYear(int);
-    void setExtraInfo(const unordered_map<string, string>&);
-    void setExtraInfo(const string& key, const string& value);
+    void setExtraInfo(const std::unordered_map<std::string, std::string>&);
+    void setExtraInfo(const std::string& key, const std::string& value);
     bool isEqual(const TVShows& other) {return this->mUID == other.getUID();}
 };
 

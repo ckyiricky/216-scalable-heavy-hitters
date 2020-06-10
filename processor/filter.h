@@ -13,7 +13,7 @@
 class Filter
 {
 public:
-    virtual bool filter(shared_ptr<TVShows> data) = 0;
+    virtual bool filter(std::shared_ptr<TVShows> data) = 0;
     virtual ~Filter(){}
 };
 
