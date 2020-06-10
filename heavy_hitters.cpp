@@ -10,14 +10,16 @@
 #include "fake_preprocessor.h"
 #include "multistage_filter.h"
 #include "default_hasher.h"
+#include "log.h"
 #include <chrono>
 
 /*
  * IMPORTANT: This is a test version, sleep is for test only
  */
 
-int main()
+int main(int argc, char* argv[])
 {
+    initLog(string(argv[0]));
     shared_ptr<Filter> pFilter = make_shared<MultistageFilter>(3, make_shared<DefaultHasher>(), 10);
     shared_ptr<Reporter> pReporter = make_shared<FakeReporter>();
     shared_ptr<DataPreprocessor> pDataProcessor = make_shared<FakePreprocessor>();
