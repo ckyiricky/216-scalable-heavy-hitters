@@ -20,3 +20,10 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - C) Sample and Hold WITHOUT Conservative Update
   - D) Sample and Hold WITH Conservative Update
   - E) Standard Hashing
+
+# Architecture:
+TBD
+
+# Requirements:
+std >= c++11
+CMake >= 3.17

@@ -1,0 +1,11 @@
+*
+!*.*
+!*/
+*_log/
+*glog/
+*.o
+*.exe
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+*.a
