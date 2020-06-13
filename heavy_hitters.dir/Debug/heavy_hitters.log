@@ -1,0 +1,8 @@
+﻿  '-g'
+c1xx : fatal error C1083: Cannot open source file: ''-g'': No such file or directory
+  '-Wall'
+c1xx : fatal error C1083: Cannot open source file: ''-Wall'': No such file or directory
+  '-std=c++17'
+c1xx : fatal error C1083: Cannot open source file: ''-std=c++17'': No such file or directory
+  heavy_hitters.cpp
+  Generating Code...

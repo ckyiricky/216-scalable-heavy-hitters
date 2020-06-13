@@ -1,0 +1,35 @@
+﻿  '-g'
+c1xx : fatal error C1083: Cannot open source file: ''-g'': No such file or directory
+  '-Wall'
+c1xx : fatal error C1083: Cannot open source file: ''-Wall'': No such file or directory
+  '-std=c++17'
+c1xx : fatal error C1083: Cannot open source file: ''-std=c++17'': No such file or directory
+  naive_hasher.cpp
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.h(15,34): error C2653: 'MultistageFilter': is not a class or namespace name
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.h(15,53): error C2061: syntax error: identifier 'shared_ptr'
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(17,37): error C2065: 'TVShows': undeclared identifier
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(17,26): error C2923: 'std::shared_ptr': 'TVShows' is not a valid template type argument for parameter '_Ty'
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(18,1): error C2511: 'bool NaiveHasher::filter(std::shared_ptr)': overloaded member function not found in 'NaiveHasher'
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.h(7): message : see declaration of 'NaiveHasher'
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(19,21): error C2675: unary '->': 'std::shared_ptr' does not define this operator or a conversion to a type acceptable to the predefined operator
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(19,33): error C2039: 'getUID': is not a member of 'std::shared_ptr'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\memory(1003): message : see declaration of 'std::shared_ptr'
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(22,21): error C3536: 'hashId': cannot be used before it is initialized
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(22,5): error C2352: 'NaiveHasher::getHashes': illegal call of non-static member function
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.h(12): message : see declaration of 'NaiveHasher::getHashes'
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(24,25): error C2065: 'mStages': undeclared identifier
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(26,15): error C2065: 'mFilters': undeclared identifier
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(26,37): error C2065: 'mEntries': undeclared identifier
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(37,23): error C2065: 'mStages': undeclared identifier
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(39,25): error C2065: 'mStages': undeclared identifier
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\naive_hasher.cpp(42,34): error C3536: 'steps': cannot be used before it is initialized
+  processor.cpp
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\processor.cpp(59,92): error C2280: 'SafeQueue<std::shared_ptr<TVShows>>::SafeQueue(const SafeQueue<std::shared_ptr<TVShows>> &)': attempting to reference a deleted function
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\common\safe_queue.h(66): message : compiler has generated 'SafeQueue<std::shared_ptr<TVShows>>::SafeQueue' here
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\common\safe_queue.h(66,1): message : 'SafeQueue<std::shared_ptr<TVShows>>::SafeQueue(const SafeQueue<std::shared_ptr<TVShows>> &)': function was implicitly deleted because a data member invokes a deleted or inaccessible function 'std::mutex::mutex(const std::mutex &)'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\mutex(92,5): message : 'std::mutex::mutex(const std::mutex &)': function was explicitly deleted
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\processor\processor.cpp(59,144): error C2280: 'SafeQueue<std::shared_ptr<TVShows>>::SafeQueue(const SafeQueue<std::shared_ptr<TVShows>> &)': attempting to reference a deleted function
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\common\safe_queue.h(66): message : compiler has generated 'SafeQueue<std::shared_ptr<TVShows>>::SafeQueue' here
+C:\Users\tehsp\Documents\216-scalable-heavy-hitters\common\safe_queue.h(66,1): message : 'SafeQueue<std::shared_ptr<TVShows>>::SafeQueue(const SafeQueue<std::shared_ptr<TVShows>> &)': function was implicitly deleted because a data member invokes a deleted or inaccessible function 'std::mutex::mutex(const std::mutex &)'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\mutex(92,5): message : 'std::mutex::mutex(const std::mutex &)': function was explicitly deleted
+  Generating Code...

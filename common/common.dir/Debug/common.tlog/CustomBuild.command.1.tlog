@@ -1,0 +1,10 @@
+^C:\USERS\TEHSP\DOCUMENTS\216-SCALABLE-HEAVY-HITTERS\COMMON\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tehsp/Documents/216-scalable-heavy-hitters -BC:/Users/tehsp/Documents/216-scalable-heavy-hitters --check-stamp-file C:/Users/tehsp/Documents/216-scalable-heavy-hitters/common/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
