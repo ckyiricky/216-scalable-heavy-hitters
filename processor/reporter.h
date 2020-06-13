@@ -8,6 +8,7 @@
 #ifndef REPORTER_H
 #define REPORTER_H
 
+#include <memory>
 #include "common.h"
 
 /*

@@ -8,6 +8,7 @@
 #ifndef FILTER_H
 #define FILTER_H
 
+#include <memory>
 #include "common.h"
 
 class Filter
