@@ -6,13 +6,14 @@
  */
 
 #include <bitset>
+#include <algorithm>
 #include "log.h"
 #include "multistage_filter.h"
 
 using namespace std;
 
 MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long threshold) 
-    : mHasher(hasher), mThreshold(threshold)
+    : mHasher(hasher), mThreshold(threshold), mConservativeUpdate(true)
 {
     if (filterSize <= 0)
     {
@@ -20,13 +21,13 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, un
         filterSize = 1;
     }
     mStages = filterSize;
-    // TODO: calculate mEntries, temporarily set to 10
-    mEntries = 10;
+    // Without threshold ratio, roughly set to 1k, this constructor is not accurate
+    mEntries = 1000;
     mFilters.resize(filterSize, vector<unsigned long>(mEntries));
 }
 
 MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio) 
-    : mHasher(hasher)
+    : mHasher(hasher), mConservativeUpdate(true)
 {
     if (thresholdRatio > 1.0)
     {
@@ -40,8 +41,8 @@ MultistageFilter::MultistageFilter(int filterSize, shared_ptr<Hasher> hasher, un
         filterSize = 1;
     }
     mStages = filterSize;
-    // TODO: calculate mEntries, temporarily set to 10
-    mEntries = 10;
+    // Set entries to 1/ratio * 10
+    mEntries = 10/thresholdRatio;
     mFilters.resize(filterSize, vector<unsigned long>(mEntries));
 }
 
@@ -49,19 +50,30 @@ MultistageFilter::~MultistageFilter()
 {
 }
 
-bool MultistageFilter::filter(shared_ptr<TVShows> data, bool conservativeUpdate)
+bool MultistageFilter::filter(shared_ptr<TVShows> data)
 {
-    // TODO: conservative update
     string dataId = data->getUID();
     auto hashId = mHasher->hash(dataId);
     vector<unsigned long> hashes;
     getHashes(hashId, hashes);
     bool passed = true;
+    unsigned long minCounter = ULONG_MAX;
     for (int i = 0; i < mStages; ++i)
     {
-        if (++mFilters[i][hashes[i]%mEntries] < mThreshold)
+        auto currentCounter = ++mFilters[i][hashes[i]%mEntries];
+        if (currentCounter < mThreshold)
         {
             passed = false;
+        }
+        if (mConservativeUpdate)
+            minCounter = min(currentCounter, minCounter);
+    }
+    if (mConservativeUpdate)
+    {
+        for (int i = 0; i < mStages; ++i)
+        {
+            if (!passed && mFilters[i][hashes[i]%mEntries] > minCounter)
+                --mFilters[i][hashes[i]%mEntries];
         }
     }
     return passed;
