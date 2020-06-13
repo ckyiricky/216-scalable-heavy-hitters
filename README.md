@@ -11,10 +11,28 @@ We used a variety of data sets, with CSV files as input, and compared our result
 
 # Evaluation
 
-1) Oscar
+1) Oscars Real Dataset
   - The Oscars, AKA The Academy Awards, are awards for artistic and technical merit in the film industry
   - For example, Marlon Brando was nominated for Best Actor for his role in the film 'Julius Caesar', but he did not win.
   - This data set includes Oscar category, name of nominee, Film, and whether or not won
+  - A) Multistage Filter WITHOUT Conservative Update
+  - B) Multistage Filter WITH Conservative Update
+  - C) Sample and Hold WITHOUT Conservative Update
+  - D) Sample and Hold WITH Conservative Update
+  - E) Standard Hashing
+  
+2) Oscars Transformed Dataset
+  - Same as (1) except transformed to be 10 times larger (same data).
+  - A) Multistage Filter WITHOUT Conservative Update
+  - B) Multistage Filter WITH Conservative Update
+  - C) Sample and Hold WITHOUT Conservative Update
+  - D) Sample and Hold WITH Conservative Update
+  - E) Standard Hashing
+
+3) Fake Dataset
+  - Randomly Generated dataset to simulate heavy hitters
+  - 5 columns: ID, A, B, C, D
+  - Columns A, B, C, and D are configured to be 1,2,3,3 80% of the time, and a random number 4-10 20% of the time
   - A) Multistage Filter WITHOUT Conservative Update
   - B) Multistage Filter WITH Conservative Update
   - C) Sample and Hold WITHOUT Conservative Update
