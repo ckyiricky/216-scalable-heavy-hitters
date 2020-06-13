@@ -32,7 +32,15 @@ We used a variety of data sets, with CSV files as input, and compared our result
 3) Fake Dataset
   - Randomly Generated dataset to simulate heavy hitters
   - 5 columns: ID, A, B, C, D
-  - Columns A, B, C, and D are configured to be 1,2,3,3 80% of the time, and a random number 4-10 20% of the time
+  - Columns A, B, C, and D are configured to be 1,2,3,4 80% of the time, and a random number 5-10 20% of the time
+  - A) Multistage Filter WITHOUT Conservative Update
+  - B) Multistage Filter WITH Conservative Update
+  - C) Sample and Hold WITHOUT Conservative Update
+  - D) Sample and Hold WITH Conservative Update
+  - E) Standard Hashing
+
+4) FilmTV Movies Dataset
+  - Movies dataset containing ~45,000 movies with Title, Year of Release, Duration, Country, Director, Lead Actor, and Rating
   - A) Multistage Filter WITHOUT Conservative Update
   - B) Multistage Filter WITH Conservative Update
   - C) Sample and Hold WITHOUT Conservative Update
