@@ -41,7 +41,7 @@ public:
     MultistageFilter(int filterSize, std::shared_ptr<Hasher> hasher, unsigned long totalData, double thresholdRatio);
     ~MultistageFilter();
     // TODO: Future update to perfect forwarding
-    bool filter(std::shared_ptr<TVShows> data);
+    bool filter(std::shared_ptr<Data> data);
     void setConservativeUpdate(bool flag){mConservativeUpdate = flag;}
 };
 

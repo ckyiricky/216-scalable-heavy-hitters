@@ -9,12 +9,11 @@
 #define FAKE_REPORTER_H
 
 #include "reporter.h"
-#include "common.h"
 
 class FakeReporter : public Reporter
 {
 public:
-    void report(std::shared_ptr<TVShows>);
+    void report(std::shared_ptr<Data>);
     ~FakeReporter(){}
 };
 

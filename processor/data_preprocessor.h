@@ -13,12 +13,15 @@
 #ifndef DATA_PREPROCESSOR_H
 #define DATA_PREPROCESSOR_H
 
-#include "common.h"
+#include <memory>
+#include "data.h"
 
 class DataPreprocessor
 {
 public:
-    virtual std::shared_ptr<TVShows> preprocess() = 0;
+    virtual void init(void**) = 0;
+    virtual std::shared_ptr<Data> preprocess() = 0;
+    virtual std::shared_ptr<Data> preprocess(std::string&) = 0;
 };
 
 #endif /* !DATA_PREPROCESSOR_H */

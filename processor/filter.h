@@ -9,12 +9,12 @@
 #define FILTER_H
 
 #include <memory>
-#include "common.h"
+#include "data.h"
 
 class Filter
 {
 public:
-    virtual bool filter(std::shared_ptr<TVShows> data) = 0;
+    virtual bool filter(std::shared_ptr<Data> data) = 0;
     virtual ~Filter(){}
 };
 

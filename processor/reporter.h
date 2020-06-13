@@ -9,7 +9,7 @@
 #define REPORTER_H
 
 #include <memory>
-#include "common.h"
+#include "data.h"
 
 /*
  * This class is used to report the result.
@@ -18,7 +18,7 @@
 class Reporter
 {
 public:
-    virtual void report(std::shared_ptr<TVShows>) = 0;
+    virtual void report(std::shared_ptr<Data>) = 0;
 };
 
 #endif /* !REPORTER_H */

@@ -50,9 +50,9 @@ MultistageFilter::~MultistageFilter()
 {
 }
 
-bool MultistageFilter::filter(shared_ptr<TVShows> data)
+bool MultistageFilter::filter(shared_ptr<Data> data)
 {
-    string dataId = data->getUID();
+    string dataId = data->UID;
     auto hashId = mHasher->hash(dataId);
     vector<unsigned long> hashes;
     getHashes(hashId, hashes);
