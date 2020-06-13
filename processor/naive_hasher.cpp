@@ -18,10 +18,10 @@ bool NaiveHasher::filter(shared_ptr<TVShows> data)
 {
     string dataId = data->getUID();
     auto hashId = mHasher->hash(dataId);
-    if (hashTable.count(hashId) > 0) {
-        if (++hashTable[hashId] > mThreshold)
+    if (mHashTable.count(hashId) > 0) {
+        if (++mHashTable[hashId] > mThreshold)
             return false;
     } else 
-        hashTable[hashId] = 1;
+        mHashTable[hashId] = 1;
     return true;
 }

@@ -2,17 +2,19 @@
 #define NAIVE_HASHER_H
 
 #include <vector>
+#include <unordered_map>
 #include "hasher.h"
+#include "filter.h"
 
-class NaiveHasher
+class NaiveHasher: public Filter
 {
 private:
-    std::unordered_map<unsigned long,unsigned long> hashTable;
+    std::unordered_map<unsigned long,unsigned long> mHashTable;
     std::shared_ptr<Hasher> mHasher;
     unsigned long mThreshold;
 public:
     NaiveHasher(std::shared_ptr<Hasher> hasher, unsigned long threshold);
-    bool NaiveHasher::filter(shared_ptr<TVShows> data);
+    bool filter(std::shared_ptr<TVShows> data);
     ~NaiveHasher();
 };
 
