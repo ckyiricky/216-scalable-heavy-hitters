@@ -5,6 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 
+#include <algorithm>
 #include "log.h"
 #include "common.h"
 
@@ -32,7 +33,7 @@ void TVShows::setTitle(const std::string& newTitle)
 
 void TVShows::setDirector(const std::string& newDirector)
 {
-    if (all_of(newDirector.begin(), newDirector.end(), isspace))
+    if (std::all_of(newDirector.begin(), newDirector.end(), isspace))
     {
         LOG(ERROR) << "Set director to empty std::string, set failed";
         return;
@@ -52,7 +53,7 @@ void TVShows::setExtraInfo(const std::unordered_map<std::string, std::string>& e
 
 void TVShows::setExtraInfo(const std::string& key, const std::string& value)
 {
-    if (all_of(key.begin(), key.end(), isspace))
+    if (std::all_of(key.begin(), key.end(), isspace))
     {
         LOG(ERROR) << "Extra info cant add empty key";
         return;
