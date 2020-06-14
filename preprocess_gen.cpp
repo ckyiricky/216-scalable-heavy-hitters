@@ -7,7 +7,7 @@ using namespace std;
 
 list<string> c;
 int sz;
-vector<int> vUID{0,2};
+vector<int> vUID{0};
 
 // Struct for the Oscars dataset
 struct data {
@@ -16,6 +16,10 @@ struct data {
 	list<string> categories;
 	string UID;
 } ;
+
+void setvUID(vector<int> v){
+	vUID = v;
+}
 
 // Prints struct as a string
 string print_data(data o) {
@@ -62,7 +66,7 @@ data new_data(string s){
 		}
 	}
 	o.UID = temp.substr(0, temp.size()-2);
-	cout << o.UID << endl;
+// 	cout << o.UID << endl;
 
 	return o;
 }
