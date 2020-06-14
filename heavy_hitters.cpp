@@ -10,6 +10,7 @@
 #include <iterator>
 #include <chrono>
 #include <algorithm>
+#include <vector>
 
 #include "processor.h"
 #include "count_reporter.h"
@@ -52,11 +53,14 @@ int main(int argc, char* argv[])
     unsigned long total = countLines(argv[1]);
     string output = argv[2];
     double threshold = stod(argv[3]);
+    // Change data id keys
+    vector<int> keys = {0};
 
     shared_ptr<Filter> pFilter = make_shared<MultistageFilter>(3, make_shared<DefaultHasher>(), total, threshold);
     shared_ptr<Reporter> pReporter = make_shared<CountReporter>(output + "/multistage_conservative_update.report");
     shared_ptr<DataPreprocessor> pDataProcessor = make_shared<DataPreprocessorImpl>();
     shared_ptr<Processor> pProcessor = make_shared<Processor>(pFilter, pReporter, pDataProcessor, total, argv[1]);
+    pProcessor->setDataKeys(keys);
     auto start = chrono::steady_clock::now();
     pProcessor->startAll();
     pProcessor->joinThreads();

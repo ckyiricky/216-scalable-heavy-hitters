@@ -32,8 +32,16 @@ CountReporter::~CountReporter()
 
 void CountReporter::report(std::shared_ptr<Data> data)
 {
+    string dataString;
+    for (auto& s : data->data)
+    {
+        // Ad-hoc sovle the windows line end chars
+        if (s.size() < 2 && isspace(s[0]))
+            continue;
+        dataString += s + ", ";
+    }
     if (mOfs.good())
-        mOfs << "Data id : " << data->UID << endl;
+        mOfs << "Data id : " << dataString.erase(dataString.size() - 2) << endl;
     else
         LOG(FATAL) << "Output file broken";
 }

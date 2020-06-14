@@ -43,6 +43,8 @@ private:
     // File path
     std::string mFilename;
     std::ifstream mIfs;
+    // Ad-hoc data id keys
+    std::vector<int> mDataKeys;
 
     // Private member methods: thread working functions
     void filtering();
@@ -68,6 +70,8 @@ public:
     void reset();
     void setFilter(std::shared_ptr<Filter> filter){mpFilter = filter;};
     void setReporter(std::shared_ptr<Reporter> rep){mpReporter = rep;};
+    // Ad-hoc
+    void setDataKeys(const std::vector<int>& keys){mDataKeys = keys;};
 };
 
 #endif /* !PROCESSOR_H */

@@ -40,8 +40,7 @@ void Processor::dataPreprocessing()
 	for (auto& s : strs)
 		categories.push_back(s);
 	int size= categories.size();
-    vector<int> keys = {0};
-    void* attributes[] = {(void*)(&size), (void*)(&categories), (void*)(&keys)};
+    void* attributes[] = {(void*)(&size), (void*)(&categories), (void*)(&mDataKeys)};
     mpPreprocessor->init(attributes);
 
 	// Iterate through file and create Data object
