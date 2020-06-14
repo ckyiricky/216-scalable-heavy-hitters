@@ -10,7 +10,7 @@ void showResults(std::unordered_map<string, int>& stat) {
     return a.second > b.second;
   });
   for (int i = 0; i < stat_sorted.size(); i++) {
-    printf("%s \t %d \n", stat_sorted[i].first.c_str(), stat_sorted[i].second);
+    printf("name: %s \t occurrence: %d \n", stat_sorted[i].first.c_str(), stat_sorted[i].second);
   }
 }
 
@@ -78,11 +78,13 @@ int main() {
   // string file = "../data/test.csv";
   // string file = "../data/oscar_small.csv";
   string file = "../data/oscar_large.csv";
+  float threshold = 0.01; // probability of sampling new input
+
+  printf("processing file: %s\n", file.c_str());
+  printf("probability of sampling new entry is: %f\n", threshold);
 
   QType queue;
   unordered_map<string, int> stat;
-
-  float threshold = 0.001; // probability of sampling new input
 
   std::thread producer(getOscarStream, file, std::ref(queue));
   std::thread consumer(sampleAndHold, threshold, std::ref(queue), std::ref(stat));
@@ -90,6 +92,7 @@ int main() {
   producer.join();
   consumer.join();
 
+  printf("The sampling results are as follow:\n");
   showResults(stat);
 
   return 0;
