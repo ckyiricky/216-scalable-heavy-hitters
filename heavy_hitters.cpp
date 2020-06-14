@@ -41,18 +41,19 @@ int countLines(char* file)
 
 int main(int argc, char* argv[])
 {
-    if (argc < 3)
+    if (argc < 4)
     {
         printf("Wrong parameters! \n");
-        printf("Call heavy_hitter csv_file output_directory\n");
+        printf("Call heavy_hitter csv_file output_directory threshold\n");
         return 0;
     }
     initLog(argv[0]);
     makeDir(argv[2]);
     unsigned long total = countLines(argv[1]);
     string output = argv[2];
+    double threshold = stod(argv[3]);
 
-    shared_ptr<Filter> pFilter = make_shared<MultistageFilter>(3, make_shared<DefaultHasher>(), total, 0.01);
+    shared_ptr<Filter> pFilter = make_shared<MultistageFilter>(3, make_shared<DefaultHasher>(), total, threshold);
     shared_ptr<Reporter> pReporter = make_shared<CountReporter>(output + "/multistage_conservative_update.report");
     shared_ptr<DataPreprocessor> pDataProcessor = make_shared<DataPreprocessorImpl>();
     shared_ptr<Processor> pProcessor = make_shared<Processor>(pFilter, pReporter, pDataProcessor, total, argv[1]);
