@@ -11,5 +11,5 @@
 void FakeReporter::report(std::shared_ptr<Data> data)
 {
     //LOG(INFO) << "Data id : " << data->UID;
-    printf("Data id : %s \n", data->UID.c_str());
+    //printf("Data id : %s \n", data->UID.c_str());
 }

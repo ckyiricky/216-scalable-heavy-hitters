@@ -60,4 +60,4 @@ TBD
 
 # Requirements:
 std >= c++11
-CMake >= 3.17
+CMake >= 3.0

@@ -5,7 +5,6 @@
  * Distributed under terms of the MIT license.
  */
 
-#include <fstream>
 #include <chrono>
 #include "processor.h"
 #include "log.h"
@@ -32,17 +31,9 @@ void Processor::dataPreprocessing()
 {
     LOG(INFO) << "start data preprocessing";
 
-	ifstream fin(mFilename);
-	if (!fin.is_open())
-    {
-        LOG(ERROR) << "Open file " << mFilename << " failed!";
-        stopAll();
-        return;
-    }
-    else LOG(INFO) << "Open file " << mFilename << " succeed";
 	string line;
 	// Initialize categories, size and UID_keys
-	getline(fin, line);
+	getline(mIfs, line);
 	vector<string> strs;
     getList(line, strs);
     vector<string> categories;
@@ -54,9 +45,13 @@ void Processor::dataPreprocessing()
     mpPreprocessor->init(attributes);
 
 	// Iterate through file and create Data object
-	while (mPreDataWorking && !fin.eof())
+	while (mPreDataWorking && !mIfs.eof())
     {
-		getline(fin, line);
+        if (!mIfs.good())
+        {
+            LOG(FATAL) << "Input file broken : " << mFilename;
+        }
+		getline(mIfs, line);
 		if (line.length() > 0)
         {
             shared_ptr<Data> data = mpPreprocessor->preprocess(line);
@@ -64,7 +59,6 @@ void Processor::dataPreprocessing()
 		}
 	}
 
-	fin.close();
 }
 
 void Processor::filtering()
@@ -79,7 +73,7 @@ void Processor::filtering()
         ++mProcessedData;
         if (passed)
         {
-            LOG(INFO) << "Data " << data->UID << " passed filter.";
+            VLOG(1) << "Data " << data->UID << " passed filter.";
             mOutputDataQueue.push(data);
         }
     }
@@ -112,6 +106,15 @@ void Processor::startDataPreprocessing()
         return;
     }
     mPreDataWorking = true;
+    mIfs.clear();
+    mIfs.close();
+    mIfs.open(mFilename);
+	if (!mIfs.good())
+    {
+        LOG(FATAL) << "Open file " << mFilename << " failed!";
+        return;
+    }
+    else LOG(INFO) << "Open file " << mFilename << " succeed";
     mpDataThread = make_shared<thread>(&Processor::dataPreprocessing, this);
 }
 
@@ -119,7 +122,8 @@ void Processor::stopDataPreprocessing()
 {
     if (!mPreDataWorking) return;
     mPreDataWorking = false;
-    mpDataThread->join();
+    if (mpDataThread->joinable())
+        mpDataThread->join();
 }
 
 void Processor::startFiltering()
@@ -137,7 +141,8 @@ void Processor::stopFiltering()
 {
     if (!mFilterWorking) return;
     mFilterWorking = false;
-    mpFilterThread->join();
+    if (mpFilterThread->joinable())
+        mpFilterThread->join();
 }
 
 void Processor::startReporting()
@@ -155,7 +160,8 @@ void Processor::stopReporting()
 {
     if (!mReportWorking) return;
     mReportWorking = false;
-    mpReportThread->join();
+    if (mpReportThread->joinable())
+        mpReportThread->join();
 }
 
 void Processor::startAll()
@@ -177,6 +183,17 @@ void Processor::joinThreads()
     mpDataThread->join();
     mpFilterThread->join();
     LOG(INFO) << "All data has been filtered, waiting for reporter...";
-    while (!mOutputDataQueue.empty()) this_thread::sleep_for(chrono::seconds(1));
+    while (!mOutputDataQueue.empty()) this_thread::sleep_for(chrono::microseconds(10));
     stopReporting();
+    mIfs.close();
+}
+
+void Processor::reset()
+{
+    mIfs.clear();
+    mIfs.close();
+    stopAll();
+    while (!mInputDataQueue.empty()) mInputDataQueue.pop();
+    while (!mOutputDataQueue.empty()) mOutputDataQueue.pop();
+    mProcessedData = 0;
 }

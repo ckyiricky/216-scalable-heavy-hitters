@@ -9,6 +9,7 @@
 #define PROCESSOR_H
 
 #include <thread>
+#include <fstream>
 #include "filter.h"
 #include "reporter.h"
 #include "data_preprocessor.h"
@@ -41,6 +42,7 @@ private:
     unsigned long mProcessedData;
     // File path
     std::string mFilename;
+    std::ifstream mIfs;
 
     // Private member methods: thread working functions
     void filtering();
@@ -51,7 +53,7 @@ private:
 public:
     Processor() = delete;
     Processor(std::shared_ptr<Filter>, std::shared_ptr<Reporter>, std::shared_ptr<DataPreprocessor>, unsigned long totalData, const std::string& filePath);
-    ~Processor(){};
+    ~Processor(){mIfs.close();};
     void startFiltering();
     void stopFiltering();
     void startDataPreprocessing();
@@ -63,6 +65,9 @@ public:
     void joinThreads();
     void setDataSize(unsigned long size){mTotalData = size;}
     void setFilePath(const std::string& file){mFilename = file;}
+    void reset();
+    void setFilter(std::shared_ptr<Filter> filter){mpFilter = filter;};
+    void setReporter(std::shared_ptr<Reporter> rep){mpReporter = rep;};
 };
 
 #endif /* !PROCESSOR_H */

@@ -7,11 +7,14 @@
 
 #include <cstdlib>
 #include <fstream>
+#include <chrono>
 
 #include "processor.h"
-#include "fake_reporter.h"
+#include "count_reporter.h"
 #include "data_preprocessor_impl.h"
 #include "multistage_filter.h"
+#include "sample_and_hold.h"
+#include "naive_filter.h"
 #include "default_hasher.h"
 #include "log.h"
 
@@ -36,19 +39,53 @@ int countLines(char* file)
 
 int main(int argc, char* argv[])
 {
-    if (argc < 2)
+    if (argc < 3)
     {
         printf("Wrong parameters! \n");
-        printf("Call heavy_hitter csv_file\n");
+        printf("Call heavy_hitter csv_file output_directory\n");
         return 0;
     }
     initLog(argv[0]);
+    makeDir(argv[2]);
     unsigned long total = countLines(argv[1]);
+    string output = argv[2];
+
     shared_ptr<Filter> pFilter = make_shared<MultistageFilter>(3, make_shared<DefaultHasher>(), total, 0.01);
-    shared_ptr<Reporter> pReporter = make_shared<FakeReporter>();
+    shared_ptr<Reporter> pReporter = make_shared<CountReporter>(output + "/multistage.report");
     shared_ptr<DataPreprocessor> pDataProcessor = make_shared<DataPreprocessorImpl>();
     shared_ptr<Processor> pProcessor = make_shared<Processor>(pFilter, pReporter, pDataProcessor, total, argv[1]);
+    auto start = chrono::steady_clock::now();
     pProcessor->startAll();
     pProcessor->joinThreads();
+    auto end = chrono::steady_clock::now();
+    chrono::duration<double> dur = end - start;
+    printf("Processing time for multistage : %f \n", dur.count());
+
+    pProcessor->reset();
+    pFilter.reset(new SampleAndHold((unsigned long)total*0.01));
+    pReporter.reset(new CountReporter(output + "/sample_and_hold.report"));
+    pProcessor->setFilter(pFilter);
+    pProcessor->setReporter(pReporter);
+
+    start = chrono::steady_clock::now();
+    pProcessor->startAll();
+    pProcessor->joinThreads();
+    end = chrono::steady_clock::now();
+    dur = end - start;
+    printf("Processing time for sample and hold: %f \n", dur.count());
+
+    pProcessor->reset();
+    pFilter.reset(new NaiveFilter((unsigned long)total*0.01));
+    pReporter.reset(new CountReporter(output + "/naive.report"));
+    pProcessor->setFilter(pFilter);
+    pProcessor->setReporter(pReporter);
+
+    start = chrono::steady_clock::now();
+    pProcessor->startAll();
+    pProcessor->joinThreads();
+    end = chrono::steady_clock::now();
+    dur = end - start;
+    printf("Processing time for naive hashing: %f \n", dur.count());
+
     return 0;
 }
