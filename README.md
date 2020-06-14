@@ -5,7 +5,7 @@ We implemented a scalable heavy hitters scheme based off of the following paper:
 http://pages.cs.wisc.edu/~estan/publications/elephantsandmice.pdf
 
 Specifically we implemented the 'Multistage filter' and 'Sample and Hold'algorithms.<br/>
-  Note: Both algorithms were implemented with and without the conservative update strategy.
+  Note:  The Multistage Filter was implemented with and without the conservative update strategy.
 
 We used a variety of data sets, with CSV files as input, and compared our results to a naive hashing algorithm.
 
@@ -57,6 +57,8 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - B) Multistage Filter WITHOUT Conservative Update: 2.324747 seconds
   - C) Sample and Hold: 1.906021 seconds
   - D) Standard Hashing: 2.050334 seconds
+
+Evaluations performed on an Asus Laptop with an Intel i7-10510U CPU @ 1.80GHz processor, 16GB RAM, on an Ubuntu terminal
 
 # Analysis:
 
