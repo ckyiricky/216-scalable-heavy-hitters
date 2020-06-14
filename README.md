@@ -19,19 +19,19 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - This data set includes Oscar category, name of nominee, Film, and whether or not won
   - Filtering on Category
   - Threshold = 0.04
-  - A) Multistage Filter WITH Conservative Update: 0.046000 seconds, 598 lines
-  - B) Multistage Filter WITHOUT Conservative Update: 0.039024 seconds, 5398 lines
-  - C) Sample and Hold: 0.067447 seconds, 582 lines
-  - D) Standard Hashing: 0.068105 seconds, 598 lines
+  - A) Multistage Filter WITH Conservative Update: 0.033409 seconds, 63 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 0.028777 seconds, 3637 lines
+  - C) Sample and Hold: 0.036813 seconds, 52 lines
+  - D) Standard Hashing: 0.034507 seconds, 63 lines
   
 2) Oscars Transformed Dataset (103,960 lines)
   - Same as (1) except transformed to be 10 times larger (same data).
   - Filtering on Category
   - Threshold = 0.04
-  - A) Multistage Filter WITH Conservative Update: 0.272999 seconds, 562 lines
-  - B) Multistage Filter WITHOUT Conservative Update: 0.287293 seconds, 36115 lines
-  - C) Sample and Hold: 0.358042 seconds, 555 lines
-  - D) Standard Hashing: 0.355145 seconds, 562 lines
+  - A) Multistage Filter WITH Conservative Update: 0.261678 seconds, 562 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 0.291292 seconds, 36115 lines
+  - C) Sample and Hold: 0.306713 seconds, 557 lines
+  - D) Standard Hashing: 0.313752 seconds, 562 lines
 
 3) FilmTV Movies Dataset (~45,000 lines)
   - Movies dataset containing ~45,000 movies with Title, Year of Release, Duration, Country, Director, Lead Actor, and Rating
@@ -47,10 +47,10 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - 4 columns: 1, 2, 3, 4
   - Columns 1, 2, 3, and 4 are configured to be A, B, C and D (respectively) 80% of the time, and a random letter E-Z 20% of the time
   - Filtering on 3 with threshold 0.7
-  - A) Multistage Filter WITH Conservative Update: 0.299161 seconds, 10914 lines
-  - B) Multistage Filter WITHOUT Conservative Update: 0.014146 seconds, 80913 lines
-  - C) Sample and Hold: 0.007044 seconds, 10072 lines
-  - D) Standard Hashing: 0.005851 seconds, 10074 lines
+  - A) Multistage Filter WITH Conservative Update: 0.259293 seconds, 10125 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 0.423100 seconds, 80124 lines
+  - C) Sample and Hold: 0.261514 seconds, 10118 lines
+  - D) Standard Hashing: 0.247077 seconds, 10125 lines
 
 5) Larger Fake Dataset (1,000,000 lines)
   - Same idea as (4) but 10 times larger
