@@ -40,23 +40,23 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - C) Sample and Hold: 0.112215 seconds, 9057 lines
   - D) Standard Hashing: 0.124344 seconds, 9058 lines
 
-4) Fake Dataset (100,000 lines)
+4) Fake Letters Dataset (100,000 lines)
   - Randomly Generated dataset to simulate heavy hitters
-  - 5 columns: ID, A, B, C, D
-  - Columns A, B, C, and D are configured to be 1,2,3,4 80% of the time, and a random number 5-10 20% of the time
-  - Filtering on C
-  - A) Multistage Filter WITH Conservative Update: x seconds, y lines
-  - B) Multistage Filter WITHOUT Conservative Update: x seconds, y lines
-  - C) Sample and Hold: x seconds, y lines
-  - D) Standard Hashing
+  - 4 columns: 1, 2, 3, 4
+  - Columns 1, 2, 3, and 4 are configured to be A, B, C and D (respectively) 80% of the time, and a random letter E-Z 20% of the time
+  - Filtering on 3 with threshold 0.7
+  - A) Multistage Filter WITH Conservative Update: 0.299161 seconds, 10914 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 0.014146 seconds, 80913 lines
+  - C) Sample and Hold: 0.007044 seconds, 10072 lines
+  - D) Standard Hashing: 0.005851 seconds, 10074 lines
 
 5) Larger Fake Dataset (1,000,000 lines)
   - Same idea as (4) but 10 times larger
-  - Filtering on C
-  - A) Multistage Filter WITH Conservative Update: x seconds, y lines
-  - B) Multistage Filter WITHOUT Conservative Update: x seconds, y lines
-  - C) Sample and Hold: x seconds, y lines
-  - D) Standard Hashing: x seconds, y lines
+  - Filtering on 3 with threshold 0.7
+  - A) Multistage Filter WITH Conservative Update: 2.279764 seconds
+  - B) Multistage Filter WITHOUT Conservative Update: 2.324747 seconds
+  - C) Sample and Hold: 1.906021 seconds
+  - D) Standard Hashing: 2.050334 seconds
 
 # Architecture:
 TBD
