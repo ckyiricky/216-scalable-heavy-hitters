@@ -52,14 +52,6 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - C) Sample and Hold: 0.261514 seconds, 10118 lines
   - D) Standard Hashing: 0.247077 seconds, 10125 lines
 
-5) Larger Fake Dataset (1,000,000 lines)
-  - Same idea as (4) but 10 times larger
-  - Filtering on 3 with threshold 0.7
-  - A) Multistage Filter WITH Conservative Update: 2.279764 seconds
-  - B) Multistage Filter WITHOUT Conservative Update: 2.324747 seconds
-  - C) Sample and Hold: 1.906021 seconds
-  - D) Standard Hashing: 2.050334 seconds
-
 Evaluations performed on an Asus Laptop with an Intel i7-10510U CPU @ 1.80GHz processor, 16GB RAM, on an Ubuntu terminal
 
 # Analysis:
