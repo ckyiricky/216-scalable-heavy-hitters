@@ -58,7 +58,7 @@ We used a threshold of 0.8 for evaluations.
   - D) Standard Hashing: x seconds, y lines
 
 # Architecture:
-TBD
+  [Architecture figure](./architecture.pdf)
 
 # Requirements:
 std >= c++11
