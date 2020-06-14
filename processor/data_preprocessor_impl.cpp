@@ -12,11 +12,13 @@ using namespace std;
 void DataPreprocessorImpl::getList(std::string& s, std::vector<std::string>& out)
 {
 	size_t pos = 0;
-	while ((pos = s.find(", ")) != string::npos)
+	while ((pos = s.find(",")) != string::npos)
     {
 		string token = s.substr(0, pos);
 		out.push_back(move(token));
-		s.erase(0, pos + 2);
+        ++pos;
+        while (isspace(s[pos])) ++pos;
+		s.erase(0, pos);
 	}
 	if (s.length() > 0)
 		out.push_back(s);
