@@ -57,11 +57,16 @@ We used a threshold of 0.8 for evaluations.
   - C) Sample and Hold: x seconds, y lines
   - D) Standard Hashing: x seconds, y lines
 
-# Architecture:
-  [Architecture figure](./architecture.pdf)
+# Architecture
+[Architecture sketch](./architecture.pdf)<br/>
+Preprocessor: preprocess data -- trasmit data from csv to project data structure<br/>
+Queue: thread safe queue<br/>
+Filter: heavy hitter detector -- sample and hold, multistage filter and naive filters<br/>
+Reporter: report data<br/>
+    
 
 # Requirements:
-std >= c++11
+std >= c++11<br/>
 CMake >= 3.0
 
 # Instructions
