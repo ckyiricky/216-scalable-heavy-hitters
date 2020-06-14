@@ -7,7 +7,9 @@
 
 #include <cstdlib>
 #include <fstream>
+#include <iterator>
 #include <chrono>
+#include <algorithm>
 
 #include "processor.h"
 #include "count_reporter.h"
@@ -51,7 +53,7 @@ int main(int argc, char* argv[])
     string output = argv[2];
 
     shared_ptr<Filter> pFilter = make_shared<MultistageFilter>(3, make_shared<DefaultHasher>(), total, 0.01);
-    shared_ptr<Reporter> pReporter = make_shared<CountReporter>(output + "/multistage.report");
+    shared_ptr<Reporter> pReporter = make_shared<CountReporter>(output + "/multistage_conservative_update.report");
     shared_ptr<DataPreprocessor> pDataProcessor = make_shared<DataPreprocessorImpl>();
     shared_ptr<Processor> pProcessor = make_shared<Processor>(pFilter, pReporter, pDataProcessor, total, argv[1]);
     auto start = chrono::steady_clock::now();
@@ -59,7 +61,18 @@ int main(int argc, char* argv[])
     pProcessor->joinThreads();
     auto end = chrono::steady_clock::now();
     chrono::duration<double> dur = end - start;
-    printf("Processing time for multistage : %f \n", dur.count());
+    printf("Processing time for multistage with conservative update: %f \n", dur.count());
+
+    pProcessor->reset();
+    pFilter->setConservativeUpdate(false);
+    pReporter.reset(new CountReporter(output + "/multistage.report"));
+    pProcessor->setReporter(pReporter);
+    start = chrono::steady_clock::now();
+    pProcessor->startAll();
+    pProcessor->joinThreads();
+    end = chrono::steady_clock::now();
+    dur = end - start;
+    printf("Processing time for multistage without conservative update: %f \n", dur.count());
 
     pProcessor->reset();
     pFilter.reset(new SampleAndHold((unsigned long)total*0.01));

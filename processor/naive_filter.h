@@ -17,6 +17,7 @@ private:
     std::unordered_map<std::string, unsigned long> mStat;
 public:
     NaiveFilter(unsigned long t) : mThreshold(t){}
+    void setConservativeUpdate(bool flag){}
     bool filter(std::shared_ptr<Data> data)
     {
         return ++mStat[data->UID] >= mThreshold;

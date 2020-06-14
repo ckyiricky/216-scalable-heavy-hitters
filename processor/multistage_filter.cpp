@@ -7,6 +7,7 @@
 
 #include <bitset>
 #include <algorithm>
+#include <climits>
 #include "log.h"
 #include "multistage_filter.h"
 

@@ -14,6 +14,7 @@
 class Filter
 {
 public:
+    virtual void setConservativeUpdate(bool) = 0;
     virtual bool filter(std::shared_ptr<Data> data) = 0;
     virtual ~Filter(){}
 };

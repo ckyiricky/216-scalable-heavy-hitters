@@ -24,6 +24,7 @@ public:
     NetFlow(unsigned long, double);
     void setThreshold(unsigned long t){mThreshold = t;};
     void setProbability(double p){mProbability = p;};
+    void setConservativeUpdate(bool flag){}
     bool filter(std::shared_ptr<Data>);
 };
 
