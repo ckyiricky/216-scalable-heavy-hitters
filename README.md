@@ -58,6 +58,15 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - C) Sample and Hold: 1.906021 seconds
   - D) Standard Hashing: 2.050334 seconds
 
+# Analysis:
+
+1) For the sample and hold method, since we are processing a whole dataset at once which has no concepts of 'time interval', the optimaztion update in the paper for sample and hold is not applicable in our case.
+
+2) Based on the evaluation, we take standard hashing as benchmark.
+    - Multistage Filter without conservative update always has a larger report output, that is caused by a number of false positive. Multistage filter with conservative update is doing much better.
+    - Sample and hold always has a smaller report output, that is caused by a few cases of false negative. The false nagative is caused by the sampling method.
+    - Multistage Filter runs faster than both sample and hold and naive hashing.
+
 # Architecture
 [Architecture sketch](./architecture.pdf)<br/>
 Preprocessor: preprocess data -- trasmit data from csv to project data structure<br/>
