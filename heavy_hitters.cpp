@@ -29,13 +29,9 @@ using namespace std;
 int countLines(char* file)
 {
     std::ifstream myfile(file);
-    // new lines will be skipped unless we stop it from happening:
-    myfile.unsetf(std::ios_base::skipws);
-    // count the newlines with an algorithm specialized for counting:
-    unsigned long total = std::count(
-        std::istream_iterator<char>(myfile),
-        std::istream_iterator<char>(),
-        '\n');
+    int total = 0;
+    string line;
+    while (getline(myfile, line)) ++total;
     myfile.close();
     return total;
 }
@@ -50,7 +46,7 @@ int main(int argc, char* argv[])
     }
     initLog(argv[0]);
     makeDir(argv[2]);
-    unsigned long total = countLines(argv[1]);
+    unsigned long total = countLines(argv[1]) - 1;
     string output = argv[2];
     double threshold = stod(argv[3]);
     // Change data id keys
