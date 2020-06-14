@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
     printf("Processing time for multistage without conservative update: %f \n", dur.count());
 
     pProcessor->reset();
-    pFilter.reset(new SampleAndHold((unsigned long)total*0.01));
+    pFilter.reset(new SampleAndHold((unsigned long)total*threshold));
     pReporter.reset(new CountReporter(output + "/sample_and_hold.report"));
     pProcessor->setFilter(pFilter);
     pProcessor->setReporter(pReporter);
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
     printf("Processing time for sample and hold: %f \n", dur.count());
 
     pProcessor->reset();
-    pFilter.reset(new NaiveFilter((unsigned long)total*0.01));
+    pFilter.reset(new NaiveFilter((unsigned long)total*threshold));
     pReporter.reset(new CountReporter(output + "/naive.report"));
     pProcessor->setFilter(pFilter);
     pProcessor->setReporter(pReporter);
