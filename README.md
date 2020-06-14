@@ -25,6 +25,7 @@ We used a variety of data sets, with CSV files as input, and compared our result
 2) Oscars Transformed Dataset (103,960 lines)
   - Same as (1) except transformed to be 10 times larger (same data).
   - Filtering on Category
+  - Threshold = 0.04
   - A) Multistage Filter WITH Conservative Update: 0.272999 seconds, 562 lines
   - B) Multistage Filter WITHOUT Conservative Update: 0.287293 seconds, 36115 lines
   - C) Sample and Hold: 0.358042 seconds, 555 lines
@@ -33,10 +34,11 @@ We used a variety of data sets, with CSV files as input, and compared our result
 3) FilmTV Movies Dataset (~45,000 lines)
   - Movies dataset containing ~45,000 movies with Title, Year of Release, Duration, Country, Director, Lead Actor, and Rating
   - Filtering on Genre
-  - A) Multistage Filter WITH Conservative Update: x seconds, y lines
-  - B) Multistage Filter WITHOUT Conservative Update: x seconds, y lines
-  - C) Sample and Hold: x seconds, y lines
-  - D) Standard Hashing: x seconds, y lines
+  - Threshold = 0.8
+  - A) Multistage Filter WITH Conservative Update: 0.114002 seconds, 9058 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 0.227852 seconds, 45749 lines
+  - C) Sample and Hold: 0.112215 seconds, 9057 lines
+  - D) Standard Hashing: 0.124344 seconds, 9058 lines
 
 4) Fake Dataset (100,000 lines)
   - Randomly Generated dataset to simulate heavy hitters
