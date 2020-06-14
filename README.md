@@ -58,11 +58,16 @@ We used a variety of data sets, with CSV files as input, and compared our result
   - C) Sample and Hold: 1.906021 seconds
   - D) Standard Hashing: 2.050334 seconds
 
-# Architecture:
-TBD
+# Architecture
+[Architecture sketch](./architecture.pdf)<br/>
+Preprocessor: preprocess data -- trasmit data from csv to project data structure<br/>
+Queue: thread safe queue<br/>
+Filter: heavy hitter detector -- sample and hold, multistage filter and naive filters<br/>
+Reporter: report data<br/>
+    
 
 # Requirements:
-std >= c++11
+std >= c++11<br/>
 CMake >= 3.0
 
 # Instructions
