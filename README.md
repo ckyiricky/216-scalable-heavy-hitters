@@ -11,6 +11,8 @@ We used a variety of data sets, with CSV files as input, and compared our result
 
 # Evaluation
 
+[Evaluation 2](./doc/evaluation_rick.md)
+
 1) Oscars Real Dataset (10,396 lines)
   - The Oscars, AKA The Academy Awards, are awards for artistic and technical merit in the film industry
   - For example, Marlon Brando was nominated for Best Actor for his role in the film 'Julius Caesar', but he did not win.

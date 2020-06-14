@@ -35,16 +35,16 @@ Evaluations performed on Macbook with an Intel i7 CPU @ 2.80GHz processor, 16GB 
   - 4 columns: 1, 2, 3, 4
   - Columns 1, 2, 3, and 4 are configured to be A, B, C and D (respectively) 80% of the time, and a random letter E-Z 20% of the time
   - Filtering on 3 with threshold 0.7
-  - A) Multistage Filter WITH Conservative Update: 0.928613 seconds, 10118 lines
-  - B) Multistage Filter WITHOUT Conservative Update: 0.797658 seconds, 80117 lines
-  - C) Sample and Hold: 1.025937 seconds, 10115 lines
-  - D) Standard Hashing: 1.016725 seconds, 10118 lines
+  - A) Multistage Filter WITH Conservative Update: 0.666358 seconds, 10174 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 0.683470 seconds, 80173 lines
+  - C) Sample and Hold: 0.938767 seconds, 10171 lines
+  - D) Standard Hashing: 0.952976 seconds, 10174 lines
 
 5) Larger Fake Dataset (1,000,000 lines)
   - Same idea as (4) but 10 times larger
   - Filtering on 3 with threshold 0.7
-  - A) Multistage Filter WITH Conservative Update: 9.559641 seconds, 101767 lines
-  - B) Multistage Filter WITHOUT Conservative Update: 8.226404 seconds, 801766 lines
-  - C) Sample and Hold: 11.164059 seconds, 101765 lines
-  - D) Standard Hashing: 11.407487 seconds, 101767 lines
+  - A) Multistage Filter WITH Conservative Update: 6.975245 seconds, 102140 lines
+  - B) Multistage Filter WITHOUT Conservative Update: 8.141252 seconds, 802139 lines
+  - C) Sample and Hold: 10.484632 seconds, 102133 lines
+  - D) Standard Hashing: 10.790193 seconds, 102140 lines
 
