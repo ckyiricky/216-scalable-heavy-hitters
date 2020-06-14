@@ -68,7 +68,7 @@ Evaluations performed on an Asus Laptop with an Intel i7-10510U CPU @ 1.80GHz pr
 2) Based on the evaluation, we take standard hashing as benchmark.
     - Multistage Filter without conservative update always has a larger report output, that is caused by a number of false positive. Multistage filter with conservative update is doing much better.
     - Sample and hold always has a smaller report output, that is caused by a few cases of false negative. The false nagative is caused by the sampling method.
-    - Multistage Filter runs faster than both sample and hold and naive hashing.
+    - In most cases, Multistage Filter runs faster than both sample and hold and naive hashing.
 
 # Architecture
 [Architecture sketch](./architecture.pdf)<br/>
