@@ -4,7 +4,7 @@ UCLA CS216 Project
 We implemented a scalable heavy hitters scheme based off of the following paper:
 http://pages.cs.wisc.edu/~estan/publications/elephantsandmice.pdf
 
-Specifically we implemented the 'Multistage filter' and 'Sample and Hold'algorithms.
+Specifically we implemented the 'Multistage filter' and 'Sample and Hold'algorithms.<br/>
   Note: Both algorithms were implemented with and without the conservative update strategy.
 
 We used a variety of data sets, with CSV files as input, and compared our results to a naive hashing algorithm.
@@ -71,11 +71,12 @@ std >= c++11<br/>
 CMake >= 3.0
 
 # Instructions
-In the main directory:
-cmake .
-make
-./heavy_hitters ./data/{Input File Dataset}.csv ./report {threshold}
-For example, using the large Oscars with a threshold of 0.8:
-    ./heavy_hitters ./data/oscar_large.csv ./report 0.8
+In the main directory:<br/>
+cmake .<br/>
+make<br/>
+./heavy_hitters ./data/{Input File Dataset}.csv ./report {threshold}<br/>
+For example, using the large Oscars with a threshold of 0.8:<br/>
+    ./heavy_hitters ./data/oscar_large.csv ./report 0.8<br/>
 
-Currently, we hard-coded which column in the CSV to filter on.  By default, it will filter on the first column.
+Currently, we do have to pass a parameter in the code to indicate which columns in the CSV to filter on (which can be found in the heavy_hitter.cpp).<br/> 
+By default, it will filter on the first column, one change the {0} to any combinations needed to be the UID.
