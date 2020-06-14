@@ -27,6 +27,7 @@ CountReporter::CountReporter(const string& file)
 
 CountReporter::~CountReporter()
 {
+    mOfs.flush();
     mOfs.close();
 }
 
@@ -41,7 +42,10 @@ void CountReporter::report(std::shared_ptr<Data> data)
         dataString += s + ", ";
     }
     if (mOfs.good())
+    {
         mOfs << "Data id : " << dataString.erase(dataString.size() - 2) << endl;
+        mOfs.flush();
+    }
     else
         LOG(FATAL) << "Output file broken";
 }
